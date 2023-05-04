@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+  <script>
+    const c1 = document.getElementById('c1')
+    const context = c1.getContext('2d')
+    
+    let index = 0
+    const render = ()=>{
+      context.clearRect(0, 0, 600, 400);
+      index ++
+      if(index > 40){
+        index = 0
+      }
+      context.moveTo(150, 150)
+      context.lineTo(300, 200)
+      context.lineTo(450,150)
+      
+      //设置线条样式,默认是1px
+      context.lineWidth= 1;
+      //设置虚线
+      context.setLineDash([10,5]);
+      context.lineDashOffset = index;
+      context.stroke();
+      requestAnimationFrame(render)
+    }
+    requestAnimationFrame(render)
+
+  </script>
+</body>
+</html>

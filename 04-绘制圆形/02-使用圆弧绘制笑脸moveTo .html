@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+  <script>
+    const c1 = document.getElementById('c1')
+    const context = c1.getContext('2d')
+    
+    //绘制一张脸
+    context.arc(75, 75, 50, 0, Math.PI * 2,false);
+    context.moveTo(110, 75);
+    
+
+    //绘制嘴巴
+    context.arc(75, 75, 35, 0, Math.PI ,false);
+    context.moveTo(70, 55);
+
+    //绘制左眼
+    context.arc(55, 55, 15, 0, Math.PI ,true);
+    context.moveTo(110, 55);
+
+    //绘制右眼
+    context.arc(95, 55, 15, 0, Math.PI ,true);
+    context.stroke();
+  
+  </script>
+</body>
+</html>

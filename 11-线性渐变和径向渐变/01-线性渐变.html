@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+  <script>
+    const c1 = document.getElementById('c1')
+    const context = c1.getContext('2d')
+
+    //创建线性渐变
+    // let linearGradient = context.createLinearGradient(100, 200, 300, 300);
+    // linearGradient.addColorStop(0, 'red');
+    // linearGradient.addColorStop(0.3, '#ffcccc');
+    // linearGradient.addColorStop(1, 'blue');
+    // context.fillStyle=linearGradient;
+    // context.fillRect(100,200,200,100);
+
+    let index = 0
+    const render = ()=>{
+      context.clearRect(0, 0, 600, 400);
+      index += 0.01
+      if(index > 1){
+        index = 0
+      }
+
+      let linearGradient = context.createLinearGradient(100, 200, 300, 300);
+      linearGradient.addColorStop(0, 'red');
+      linearGradient.addColorStop(index, '#ffcccc');
+      linearGradient.addColorStop(1, 'blue');
+      context.fillStyle=linearGradient;
+      context.fillRect(100,200,200,100);
+
+      requestAnimationFrame(render)
+    }    
+
+    requestAnimationFrame(render)
+
+  </script>
+</body>
+</html>

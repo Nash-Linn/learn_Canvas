@@ -30,20 +30,34 @@
     // context.strokeRect(50,50, 100, 50);
     // context.fillRect(75,75,100,100);
     // context.clearRect(80, 80, 20, 20);
-     context.fillRect(0,0,400,400);
-     let x=y=0
-    let time = setInterval(() => {
-      context.clearRect(x, y, 20, 20);
-      x = x + 20
-      if(x == 400 ){
-        x = 0
-        y = y + 20
-      }
-      if(y > 400){
-        clearInterval(time)
-      }
-     }, 50);
+
+
+    //  context.fillRect(0,0,400,400);
+    //  let x=y=0
+    // let time = setInterval(() => {
+    //   context.clearRect(x, y, 20, 20);
+    //   x = x + 20
+    //   if(x == 400 ){
+    //     x = 0
+    //     y = y + 20
+    //   }
+    //   if(y > 400){
+    //     clearInterval(time)
+    //   }
+    //  }, 50);
      
+    // beginPath和closePath可以完成路径的分段
+    
+    context.beginPath();
+    context.rect(100, 100, 200, 100);
+    context.stroke();
+    context.closePath();
+
+    context.beginPath();
+    context.rect(200, 150, 200, 100);
+    context.fill();
+    context.closePath();
+    
     
    
   </script>
