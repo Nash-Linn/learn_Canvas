@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+  <script>
+    const c1 = document.getElementById('c1')
+    const context = c1.getContext('2d')
+
+    const img = new Image()
+    img.src = './imgs/1.jpg'
+    img.onload = function(){
+      // 第一种绘制图片的方式
+      // 参数1 图片对象
+      // 参数2 画布的水平位置
+      // 参数3 画布的垂直位置
+      // context.drawImage(img, 0, 0);
+
+      //第二种
+      //参数4 图片宽度
+      //参数5 图片高度
+      // context.drawImage(img, 0, 0, 600, 400);
+
+      //第三种
+      //第2个参数到第5个参数 源图片上要裁剪的矩形 起点位置 和 终点位置  后面几个参数同上
+      context.drawImage(img, 100, 0, 200, 200, 0, 0, 600, 400);
+      
+    }
+
+  </script>
+</body>
+</html>

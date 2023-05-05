@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+  <script>
+    const c1 = document.getElementById('c1')
+    const context = c1.getContext('2d')
+   
+    //文字大小 字体
+    context.font='50px sans-serif';
+    //填充渲染文字
+    const text = 'happy'
+    // context.fillText(渲染的文字, 位置x, 位置y, 最大宽度);
+    // context.fillText(text, 20, 100,100);
+
+    //文本对齐选项  context.textAlign='start | left | center | right |end';
+    context.textAlign='left';
+    //文本基线对齐 context.textBaseline='top | hanging | middle | alphabetic | ideographic | bottom';
+    context.textBaseline='top';
+    //文本的方向 context.direction='inherit | ltr | rtl';
+    context.direction='rtl';
+    
+    //预测量文本宽度
+    let mText = context.measureText(text);
+    console.log('mText',mText)
+
+    context.strokeStyle='red';
+    context.strokeText(text, 300, 200);
+
+    //画个中心点 作为基点
+    context.arc(300, 200, 5, 0, Math.PI * 2);
+    context.fill();
+  </script>
+</body>
+</html>

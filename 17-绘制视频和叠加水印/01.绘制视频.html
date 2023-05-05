@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+  <button id="btn">播放/暂停</button>
+  <script>
+    const c1 = document.getElementById('c1')
+    const context = c1.getContext('2d')
+
+    //获取设置视频对象
+    const video = document.createElement('video')
+    video.src = './imgs/1.mp4'
+
+    //获取按钮
+    const btn = document.querySelector('#btn')
+    btn.onclick = ()=>{
+      if(video.paused){
+        video.play()
+      }else{
+        video.pause()
+      }
+     
+      render()
+    }
+
+    //logo图片对象
+    let img = new Image()
+    img.src = './imgs/test.jpg'
+
+
+    const render = () => {
+      context.drawImage(video, 0, 0);
+      context.drawImage(img, 0, 0);
+      requestAnimationFrame(render)
+    } 
+  </script>
+</body>
+</html>
