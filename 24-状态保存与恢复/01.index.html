@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+  <script>
+    const c1 = document.getElementById('c1')
+    const context = c1.getContext('2d')
+    
+    context.fillStyle='red';
+    context.fillRect(0,0,100,100);
+    context.save();
+
+    context.fillStyle='blue';
+    context.fillRect(100,100,100,100);
+    context.save();
+    
+    context.fillStyle='yellow';
+    context.fillRect(200,200,100,100);
+    context.save();
+    
+    context.fillStyle='green';
+    context.fillRect(300,300,100,100);
+    
+    context.restore();
+    context.fillRect(500,0,100,100);
+    
+    context.restore();
+    context.fillRect(500,100,100,100);
+
+  </script>
+</body>
+<style>
+  canvas{
+    border: 1px solid;
+  }
+</style>
+</html>

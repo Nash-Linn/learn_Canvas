@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+  <script>
+    const c1 = document.getElementById('c1')
+    const context = c1.getContext('2d')
+
+    //位移 移动的是坐标系的原点 translate(水平移动距离, 垂直移动距离);
+    context.translate(100, 100);
+    context.rect(0, 0, 50, 50);
+ 
+    //每次移动是相对已经移动过的坐标系原点
+    context.translate(100, 100);
+    context.rect(0, 0, 50, 50);
+    
+    context.fill();
+    
+       
+
+  </script>
+</body>
+<style>
+  canvas{
+    border: 1px solid;
+  }
+</style>
+</html>
