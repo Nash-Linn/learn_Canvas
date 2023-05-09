@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+  <script>
+    const c1 = document.getElementById('c1')
+    const context = c1.getContext('2d')
+    class Heart{
+      constructor(x,y){
+        this.x = x
+        this.y = y
+
+        c1.onmousedown = (e)=>{
+         this.draw(e.offsetX,e.offsetY)
+        }
+      }
+      draw(x,y){
+        this.x = x
+        this.y = y
+        this.heartPath = new Path2D()
+        this.heartPath.moveTo(this.x,this.y);
+        this.heartPath.bezierCurveTo(this.x + 50 , this.y - 50,this.x + 100,this.y + 25, this.x,this.y + 50);
+        this.heartPath.moveTo(this.x,this.y);
+        this.heartPath.bezierCurveTo(this.x - 50 , this.y - 50,this.x - 100,this.y + 25, this.x,this.y + 50);
+        //存储之前状态
+        context.save();
+        context.fillStyle='red';
+
+       
+        //context.isPointInPath(this.heartPath, 100, 100) 判断点100，100 在不在路径 this.heartPath 内
+        if(context.isPointInPath(this.heartPath, 100, 100)){
+          context.fillStyle='yellow';
+        }
+        
+        context.fill(this.heartPath);
+
+        //恢复之前状态
+        context.restore();
+      }
+    }
+    const heart = new Heart()
+  </script>
+</body>
+</html>

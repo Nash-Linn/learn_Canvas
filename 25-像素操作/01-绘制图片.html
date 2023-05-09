@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="600" height="400"></canvas>
+  <script>
+    const c1 = document.getElementById('c1')
+    const context = c1.getContext('2d')
+
+    const img = new Image()
+    img.src = './imgs/1.jpg'
+    img.onload = function(){
+      context.drawImage(img, 0, 0, 600, 400);
+      
+      //获取像素数据
+      let imageData = context.getImageData(0, 0, 600, 400);
+      //循环修改数据
+      for(let i = 0;i<imageData.data.length;i += 4){
+        //计算像素的平均值
+        let avg = (imageData.data[i] + imageData.data[i + 1] +  imageData.data[i + 2] )/3
+        imageData.data[i] = avg
+        imageData.data[i + 1] = avg
+        imageData.data[i + 2] = avg
+        imageData.data[i + 3] = 255
+      }
+      //将修改后的数据重新渲染到画布上
+      context.putImageData(imageData, 0, 0);
+      
+    }
+
+  </script>
+</body>
+</html>
