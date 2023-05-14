@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="800" height="600"></canvas>
+  <hr>
+  <button id="boldBtn" type="button">粗线条</button>
+  <button id="thinBtn" type="button">细线条</button>
+  <button id="saveBtn" type="button">保存签名</button>
+  <input id="color" type="color" />
+  <button id="clearBtn" type="button">橡皮擦</button>
+  <button id="nullBtn" type="button">清空画布</button>
+
+  <script>
+    //1.获取canvas画布和绘制上下文对象
+    const canvas = document.querySelector('#c1')
+    const context = canvas.getContext('2d')
+    //连接处圆润
+    context.lineJoin='round';
+    //开端和结束端也是圆的
+    context.lineCap='round';
+    
+    //2.获取输入框和按钮
+
+    //设置画笔的粗细
+    const boldBtn = document.querySelector('#boldBtn')
+    boldBtn.onclick= ()=>{
+      context.globalCompositeOperation='source-over';
+      
+      context.lineWidth = 20;
+      boldBtn.classList.add('active')
+      thinBtn.classList.remove('active')
+      clearBtn.classList.remove('active')
+    }
+
+
+    const thinBtn = document.querySelector('#thinBtn')
+    thinBtn.onclick= ()=>{
+      context.globalCompositeOperation='source-over';
+      context.lineWidth = 1;
+      thinBtn.classList.add('active')
+      boldBtn.classList.remove('active')
+      clearBtn.classList.remove('active')
+    }
+
+    //设置绘画的颜色
+    const inputColor = document.querySelector('#color')
+    inputColor.onchange = (e) => {
+      context.strokeStyle= e.target.value;
+    }
+
+    //保存签名
+    const saveBtn = document.querySelector('#saveBtn')
+    saveBtn.onclick = ()=>{
+      const urlData= canvas.toDataURL();
+      download(urlData,'签名')
+    }
+
+    const download = (url,fileName)=>{
+      const ADom = document.createElement('a')
+      ADom.setAttribute('download',fileName)
+      ADom.href = url
+      ADom.click()
+    }
+
+
+
+    //橡皮擦按钮
+    const clearBtn = document.querySelector('#clearBtn')
+    clearBtn.onclick = ()=>{
+      context.globalCompositeOperation = 'destination-out';
+      context.lineWidth = 30;
+      clearBtn .classList.add('active')
+      boldBtn.classList.remove('active')
+      thinBtn.classList.remove('active')
+    }
+
+    //清空画布按钮
+    const nullBtn = document.querySelector('#nullBtn')
+    nullBtn.onclick = ()=>{
+      context.clearRect(0, 0, 800, 600);
+    }
+
+    //设置允许绘制的变量
+    let isDraw = false
+
+    canvas.onmousedown = (event)=>{
+      isDraw = true;
+      context.beginPath();
+      let x = event.pageX - canvas.offsetLeft;
+      let y = event.pageY - canvas.offsetTop;
+      context.moveTo(x, y);
+    }
+
+    canvas.onmouseleave = ()=>{
+      isDraw = false
+      context.closePath();
+    }
+
+    canvas.onmouseup = ()=>{
+      isDraw = false;
+      context.closePath();
+    }
+
+    canvas.onmousemove = ()=>{
+      if(isDraw){
+        let x = event.pageX - canvas.offsetLeft;
+        let y = event.pageY - canvas.offsetTop;
+        context.lineTo(x, y);
+        context.stroke();
+      }
+    }
+
+ 
+
+  </script>
+  <style>
+    #c1{
+      border: 1px solid;
+    }
+
+    button.active{
+      color: #fff;
+      background-color: orange;
+    }
+  </style>
+</body>
+</html>

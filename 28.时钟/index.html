@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c1" width="800" height="600"></canvas>
+  <script>
+    const c1 = document.querySelector('#c1')
+    const context = c1.getContext('2d')
+
+
+
+    const render = ()=>{
+      context.clearRect(0, 0, 800, 600);
+      
+      //保存当前状态
+      context.save();
+
+      context.translate(400, 300);
+      context.rotate(- Math.PI / 2);
+
+      context.save();
+
+      //绘制小时的刻度
+      for(var i = 0;i < 12 ; i++){
+        context.beginPath();
+        context.moveTo(170, 0);
+        context.lineTo(190, 0);
+        context.lineWidth=8;
+        context.strokeStyle='gray';
+        context.stroke();
+        context.closePath();
+        context.rotate(2 * Math.PI / 12);
+      }
+
+      //绘制小时的刻度
+      for(var i = 0;i < 60 ; i++){
+        context.beginPath();
+        context.moveTo(180, 0);
+        context.lineTo(190, 0);
+        context.lineWidth=2;
+        context.strokeStyle='gray';
+        context.stroke();
+        context.closePath();
+        context.rotate(2 * Math.PI / 60);
+      }
+      
+      //获取当前时间
+      const time = new Date()
+      let hour = time.getHours();
+      let min = time.getMinutes();
+      let sec = time.getSeconds();
+      hour = hour > 12 ? hour - 12 : hour  
+
+      //绘制秒针
+      context.rotate(2 * Math.PI / 60 * sec);
+      context.beginPath();
+      context.moveTo(-30, 0);
+      context.lineTo(190, 0);
+      context.lineWidth = 2;
+      context.strokeStyle='red';
+      context.stroke();
+      context.restore();
+      context.save();
+      
+      //绘制分针
+      context.rotate(2 * Math.PI / 60 * min + 2 * Math.PI / 60 / 60 * sec );
+      context.beginPath();
+      context.moveTo(-30, 0);
+      context.lineTo(150, 0);
+      context.lineWidth = 2;
+      context.strokeStyle='black';
+      context.stroke();
+      context.restore();
+      context.save();
+
+      //绘制时针
+      context.rotate(2 * Math.PI / 12 * hour + 2 * Math.PI / 12 / 60 * min );
+      context.beginPath();
+      context.moveTo(-30, 0);
+      context.lineTo(150, 0);
+      context.lineWidth = 5;
+      context.strokeStyle='black';
+      context.stroke();
+      context.restore();
+
+      context.restore();
+
+      requestAnimationFrame(render)
+    }
+    
+    requestAnimationFrame(render)
+
+  </script>
+</body>
+</html>
