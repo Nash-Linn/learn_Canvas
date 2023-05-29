@@ -3,6 +3,7 @@
 </template>
 <script setup>
 import * as PIXI from 'pixi.js'
+import { OutlineFilter, GlowFilter } from 'pixi-filters'
 
 //创建应用
 const app = new PIXI.Application({
@@ -16,84 +17,39 @@ const app = new PIXI.Application({
 //将应用画布添加到dom中
 document.body.appendChild(app.view)
 
-//创建一个矩形
-const rectangle = new PIXI.Graphics()
-//填充颜色
-//参数1 颜色
-//参数2 透明度
-rectangle.beginFill(0x66ccff, 0.5)
+//创建一个纹理
+//在vite中引入静态资源需要使用 new URL()
+const imgUrl = new URL('./assets/background.png', import.meta.url).href
+const texture = PIXI.Texture.from(imgUrl)
 
-//设置边框样式 （线宽,颜色,透明度)
-rectangle.lineStyle(4, 0xff0000, 1)
+//创建一个精灵
+const sprite = new PIXI.Sprite(texture)
+sprite.width = app.screen.width
+sprite.height = app.screen.height
 
-rectangle.drawRect(100, 100, 100, 50) //绘制矩形
+//创建容器
+const container = new PIXI.Container()
+//将精灵添加到容器中
+container.addChild(sprite)
+//将容器添加到舞台
+app.stage.addChild(container)
 
-//结束填充
-rectangle.endFill()
-
-//图像的缩放
-rectangle.scale.set(2, 2)
-
-//图像的位移
-rectangle.position.set(100, 100)
-
-//设置锚点
-rectangle.pivot.set(100, 100)
-
-//图形的旋转
-rectangle.rotation = 0.5
-
-//将矩形添加到舞台
-app.stage.addChild(rectangle)
-
-//创建一个圆形
-const circle = new PIXI.Graphics()
-circle.beginFill(0x66ccff, 0.9)
-circle.drawCircle(0, 0, 32)
-circle.endFill()
-circle.position.set(100, 300)
-app.stage.addChild(circle)
-
-//绘制圆角矩形
-const roundRectangle = new PIXI.Graphics()
-roundRectangle.beginFill(0x66ccff, 0.9)
-roundRectangle.drawRoundedRect(0, 0, 100, 50, 10)
-roundRectangle.endFill()
-roundRectangle.position.set(100, 500)
-app.stage.addChild(roundRectangle)
-
-//绘制椭圆
-const ellipse = new PIXI.Graphics()
-ellipse.beginFill(0x66ccff, 0.9)
-ellipse.drawEllipse(0, 0, 100, 50)
-ellipse.endFill()
-ellipse.position.set(300, 100)
-app.stage.addChild(ellipse)
-
-//绘制多边形
-const polygon = new PIXI.Graphics()
-polygon.beginFill(0x66ccff, 0.9)
-polygon.drawPolygon([0, 0, 100, 0, 120, 100, 0, 100, -50, 50]) //数组中每两个元素分别对应x,y
-polygon.endFill()
-polygon.position.set(300, 300)
-app.stage.addChild(polygon)
-
-//绘制圆弧
-const arc = new PIXI.Graphics()
-arc.beginFill(0x66ccff, 0.9)
-// (x,y,半径,起始角度,结束角度,是否逆时针)
-arc.arc(0, 0, 32, 0, Math.PI, false)
-arc.position.set(300, 500)
-app.stage.addChild(arc)
-
-//绘制线段
-const line = new PIXI.Graphics()
-line.lineStyle(4, 0x66ccff, 0.9)
-line.moveTo(0, 0) //线段起点
-line.lineTo(100, 100) //线段终点
-line.lineTo(100, 50) //线段终点
-line.position.set(500, 100)
-app.stage.addChild(line)
+//添加文字
+const text = new PIXI.Text('Hello PixiJS', {
+  fontFamily: 'Arial',
+  fontSize: 30 + Math.floor(app.screen.width * 0.1),
+  fill: 0xffffff,
+  align: 'center',
+  dropShadow: true,
+  dropShadowColor: '#000000',
+  drorShadowBlur: 4,
+  dropShadowAngle: Math.PI / 2,
+  dropShadowDistance: 20
+})
+text.x = app.screen.width / 2
+text.y = app.screen.height / 2
+text.anchor.set(0.5)
+container.addChild(text)
 </script>
 
 <style>
